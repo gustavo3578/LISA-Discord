@@ -23,12 +23,32 @@ async def version(ctx):
     '''
     return await ctx.send(response)
 
-@bot.command()
+@bot.command(aliases=['sent-ext'])
 async def sentiment_extraction(ctx, *text):
     """
-    Versão do bot
+    Determina em valores numéricos o sentimento que o texto enviado transmite
     """
     text=" ".join(i for i in text)
     sentiment = GraphQLQuery.lisa_sentiment_extraction(text)
 
     return await ctx.send(sentiment)
+
+@bot.command(aliases=['sent-seg'])
+async def sentenceSegmentation(ctx, *text):
+    """
+    Mostra a quantidade de sentenças de um texto. Apenas os números (a função pode ser alterada e/ou aprimorada)
+    """
+    text=" ".join(i for i in text)
+    sentence = GraphQLQuery.lisa_sentence_segmentation(text)
+
+    return await ctx.send(sentence)
+
+@bot.command(aliases=['isoff'])
+async def textOffenseLevel(ctx, *text):
+    """
+    Determina em números o quão ofensivo é a palavra ou texto redigido
+    """
+    text=" ".join(i for i in text)
+    isoff = GraphQLQuery.lisa_text_offensive_level(text)
+
+    return await ctx.send(isoff)
